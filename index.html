@@ -72,8 +72,9 @@
         }
 
         /* --- PRE-FLIGHT INTRO CHROMIUM & BLOOM ANIMATIONS --- */
+        /* Modified to slide and transition from left to center elegantly */
         .intro-text-reveal {
-            animation: scaleUpReveal 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: slideFromLeftToCenter 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* Glass / Metallic Chrome Color Shifting text */
@@ -101,11 +102,27 @@
             animation: bloomPulse 3s ease-in-out infinite;
         }
 
-        @keyframes scaleUpReveal {
-            0% { opacity: 0; transform: scale(0.92); letter-spacing: 0.3em; filter: blur(8px); }
-            15% { opacity: 1; filter: blur(0); }
-            85% { opacity: 1; transform: scale(1.02); letter-spacing: 0.45em; }
-            100% { opacity: 0; transform: scale(1.05); letter-spacing: 0.5em; }
+        @keyframes slideFromLeftToCenter {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-150px) scale(0.92); 
+                letter-spacing: 0.2em; 
+                filter: blur(8px); 
+            }
+            15% { 
+                opacity: 1; 
+                filter: blur(0); 
+            }
+            85% { 
+                opacity: 1; 
+                transform: translateX(0) scale(1.02); 
+                letter-spacing: 0.45em; 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(1.05); 
+                letter-spacing: 0.5em; 
+            }
         }
 
         @keyframes chromeShine {
@@ -123,7 +140,6 @@
 
     <!-- Global Backgrounds -->
     <div class="fixed inset-0 film-gradient -z-10"></div>
-    <canvas id="string-canvas" class="fixed inset-0 pointer-events-none z-[-5]"></canvas>
 
     <!-- Cinematic Intro Stage -->
     <div id="intro-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-[800ms] ease-out pointer-events-none">
@@ -141,11 +157,13 @@
 
     <!-- Header Navigation -->
     <header class="fixed top-0 w-full z-40 glass-panel border-b-0 border-t-0 border-r-0 border-l-0">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="font-cinematic text-xl tracking-widest text-white uppercase flex items-center gap-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex justify-between items-center">
+            <div class="font-cinematic text-lg sm:text-xl tracking-widest text-white uppercase flex items-center gap-2">
                 <span class="w-2 h-2 bg-amber-600 rounded-full animate-pulse"></span>
                 URBAN MIRAGE
             </div>
+            
+            <!-- Desktop Navigation links -->
             <nav class="hidden lg:flex gap-8 text-sm font-light tracking-wide">
                 <a href="#spatial" class="hover:text-white transition-colors">Spatial</a>
                 <a href="#3d" class="hover:text-white transition-colors">3D & Arch</a>
@@ -153,14 +171,60 @@
                 <a href="#systems" class="hover:text-white transition-colors">Systems</a>
                 <a href="#packages" class="hover:text-white transition-colors">Packages</a>
             </nav>
-            <a href="#contact" class="px-5 py-2 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all duration-500">
-                Contact Us
-            </a>
+            
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden sm:inline-block px-5 py-2 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all duration-500">
+                    Contact Us
+                </a>
+                
+                <!-- Mobile Navigation Toggle Button -->
+                <button id="mobile-menu-toggle" class="lg:hidden text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-white/5 transition-all" aria-label="Toggle Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
         </div>
     </header>
 
+    <!-- Mobile Navigation Panel Drawer -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full max-w-sm z-50 glass-panel border-l border-white/10 translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 lg:hidden">
+        <div class="flex justify-between items-center mb-8">
+            <div class="font-cinematic text-lg tracking-widest text-white uppercase flex items-center gap-2">
+                <span class="w-2 h-2 bg-amber-600 rounded-full"></span>
+                URBAN MIRAGE
+            </div>
+            <button id="mobile-menu-close" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all" aria-label="Close Menu">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-lg font-light tracking-wide">
+            <a href="#spatial" class="mobile-link hover:text-white transition-colors py-2 border-b border-white/5 flex items-center justify-between">
+                <span>Event & Spatial</span> <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </a>
+            <a href="#3d" class="mobile-link hover:text-white transition-colors py-2 border-b border-white/5 flex items-center justify-between">
+                <span>3D & Arch</span> <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </a>
+            <a href="#digital" class="mobile-link hover:text-white transition-colors py-2 border-b border-white/5 flex items-center justify-between">
+                <span>Social & Digital</span> <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </a>
+            <a href="#systems" class="mobile-link hover:text-white transition-colors py-2 border-b border-white/5 flex items-center justify-between">
+                <span>Systems & Dev</span> <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </a>
+            <a href="#packages" class="mobile-link hover:text-white transition-colors py-2 border-b border-white/5 flex items-center justify-between">
+                <span>Packages</span> <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <a href="#contact" class="mobile-link block text-center py-4 bg-white text-black font-medium rounded-full text-sm hover:bg-amber-500 hover:text-white transition-all duration-300">
+                Contact Us
+            </a>
+        </div>
+    </div>
+    
+    <!-- Mobile Navigation Backdrop -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-12">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-black/0 to-black/80 z-0"></div>
         
         <div class="relative z-10 max-w-4xl mx-auto text-center">
@@ -171,8 +235,8 @@
             </div>
             
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
-                <h1 class="font-cinematic text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-8 glowing-text">
-                    We Create <br />
+                <h1 class="font-cinematic text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-tight mb-8 glowing-text">
+                    We Create <br class="hidden sm:block" />
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600">
                         Digital Visual Experiences
                     </span>
@@ -180,17 +244,17 @@
             </div>
 
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 500ms;">
-                <p class="text-lg md:text-xl font-light text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-base sm:text-lg md:text-xl font-light text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
                     Whether it's a sketch, a brand concept, or a fully animated 3D project, we turn your vision into engaging visuals.
                 </p>
             </div>
 
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 700ms;">
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="#spatial" class="px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                    <a href="#spatial" class="w-full sm:w-auto px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:scale-105 transition-transform duration-300 text-center">
                         Explore Services
                     </a>
-                    <a href="#packages" class="px-8 py-4 border border-white/20 rounded-full font-medium tracking-wide flex items-center gap-2 hover:bg-white/5 transition-all duration-300">
+                    <a href="#packages" class="w-full sm:w-auto px-8 py-4 border border-white/20 rounded-full font-medium tracking-wide flex items-center justify-center gap-2 hover:bg-white/5 transition-all duration-300 text-center">
                         View Packages <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </a>
                 </div>
@@ -198,19 +262,19 @@
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-            <span class="text-xs uppercase tracking-widest">Scroll</span>
-            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest">Scroll</span>
+            <div class="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
     </section>
 
     <!-- SPATIAL DESIGN SECTION -->
-    <section id="spatial" class="py-24 px-6 relative">
+    <section id="spatial" class="py-20 sm:py-24 px-4 sm:px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16">
-                <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">Event & Spatial Design</h2>
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 sm:mb-16">
+                <h2 class="font-cinematic text-3xl sm:text-4xl md:text-5xl text-white mb-4">Event & Spatial Design</h2>
                 <div class="w-24 h-[1px] bg-amber-600 mb-6"></div>
-                <p class="text-gray-400 max-w-xl text-lg font-light">
+                <p class="text-gray-400 max-w-xl text-base sm:text-lg font-light">
                     Immersive physical environments tailored to command attention and guide experiences.
                 </p>
             </div>
@@ -218,20 +282,20 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Service 1 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 0ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="layout-template"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Stage Design</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Cinematic stage setups tailored to your event scale.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Stage Design</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Cinematic stage setups tailored to your event scale.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Standard (Image/Video Draft)</span><span class="font-mono text-amber-500/80">₱10,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Complex (Image Draft)</span><span class="font-mono text-amber-500/80">₱15,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Large Event (Rendered Video)</span><span class="font-mono text-amber-500/80">₱40,000</span>
                             </li>
                         </ul>
@@ -239,20 +303,20 @@
                 </div>
                 <!-- Service 2 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 150ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="map"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Event Floor Plan</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Strategic layouts for seamless event flow.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Event Floor Plan</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Strategic layouts for seamless event flow.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">2D Layout (2-3 projects)</span><span class="font-mono text-amber-500/80">₱5,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">3D Standard (Draft)</span><span class="font-mono text-amber-500/80">₱8,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">3D Complex (Rendered)</span><span class="font-mono text-amber-500/80">₱20,000</span>
                             </li>
                         </ul>
@@ -260,20 +324,20 @@
                 </div>
                 <!-- Service 3 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="box"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Booth Design</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Immersive booth experiences that stand out.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Booth Design</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Immersive booth experiences that stand out.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Standard Booth</span><span class="font-mono text-amber-500/80">₱4,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Duplicate Booth (up to 12)</span><span class="font-mono text-amber-500/80">₱8,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Complex Booth</span><span class="font-mono text-amber-500/80">₱40,000</span>
                             </li>
                         </ul>
@@ -282,8 +346,8 @@
             </div>
 
             <!-- Spatial Design Sample Link Button -->
-            <div class="mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
-                <a href="https://sites.google.com/view/urban-mirage-service/event-spatial-design" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            <div class="mt-12 sm:mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/event-spatial-design" class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
                     <span class="relative z-10">View Spatial Samples</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
@@ -293,12 +357,12 @@
     </section>
 
     <!-- 3D & ARCHITECTURAL SECTION -->
-    <section id="3d" class="py-24 px-6 relative bg-black/40">
+    <section id="3d" class="py-20 sm:py-24 px-4 sm:px-6 relative bg-black/40">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16 flex flex-col md:items-end md:text-right">
-                <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">3D & Architectural</h2>
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 sm:mb-16 flex flex-col md:items-end md:text-right">
+                <h2 class="font-cinematic text-3xl sm:text-4xl md:text-5xl text-white mb-4">3D & Architectural</h2>
                 <div class="w-24 h-[1px] bg-amber-600 mb-6 md:ml-auto"></div>
-                <p class="text-gray-400 max-w-xl text-lg font-light">
+                <p class="text-gray-400 max-w-xl text-base sm:text-lg font-light">
                     Photorealistic modeling and rendering that bring unbuilt concepts into vivid reality.
                 </p>
             </div>
@@ -306,20 +370,20 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Service 1 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 0ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="box"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">3D Modeling & Assets</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">High-fidelity modeling for products, housing, and materials.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">3D Modeling & Assets</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">High-fidelity modeling for products, housing, and materials.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Simple (3-5 models)</span><span class="font-mono text-amber-500/80">₱5,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Detailed (3-5 models)</span><span class="font-mono text-amber-500/80">₱10,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Custom Assets</span><span class="font-mono text-amber-500/80">₱30,000+</span>
                             </li>
                         </ul>
@@ -327,42 +391,42 @@
                 </div>
                 <!-- Service 2 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 150ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="monitor"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Architectural Rendering</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Photorealistic exterior modeling and stills.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Architectural Rendering</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Photorealistic exterior modeling and stills.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Exterior: Standard to Middle</span><span class="font-mono text-amber-500/80">₱15k - ₱30k</span>
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
+                                <span class="text-gray-300">Exterior: Standard/Middle</span><span class="font-mono text-amber-500/80">₱15k - ₱30k</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Exterior: High to Gold</span><span class="font-mono text-amber-500/80">₱40k+</span>
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
+                                <span class="text-gray-300">Exterior: High/Gold</span><span class="font-mono text-amber-500/80">₱40k+</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Rendering (3-6 stills)</span><span class="font-mono text-amber-500/80">₱2,500 - ₱8,000</span>
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
+                                <span class="text-gray-300">Rendering (3-6 stills)</span><span class="font-mono text-amber-500/80">₱2.5k - ₱8k</span>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <!-- Service 3 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="video"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Cinematic Animation</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Breathtaking walkthroughs and 3D scenes.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Cinematic Animation</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Breathtaking walkthroughs and 3D scenes.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Walkthrough (Max 2 mins)</span><span class="font-mono text-amber-500/80">₱30k - ₱80k+</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">3D Anim (30s - Unrendered/UHD)</span><span class="font-mono text-amber-500/80">₱10k - ₱50k</span>
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
+                                <span class="text-gray-300">3D Anim (30s - UHD)</span><span class="font-mono text-amber-500/80">₱10k - ₱50k</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">3D Anim (1m - Unrendered/UHD)</span><span class="font-mono text-amber-500/80">₱20k - ₱150k</span>
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
+                                <span class="text-gray-300">3D Anim (1m - UHD)</span><span class="font-mono text-amber-500/80">₱20k - ₱150k</span>
                             </li>
                         </ul>
                     </div>
@@ -370,8 +434,8 @@
             </div>
 
             <!-- 3D & Arch Sample Link Button -->
-            <div class="mt-16 flex justify-center md:justify-end reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
-                <a href="https://sites.google.com/view/urban-mirage-service/3d-architectural" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            <div class="mt-12 sm:mt-16 flex justify-center md:justify-end reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/3d-architectural" class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
                     <span class="relative z-10">View 3D & Arch Samples</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
@@ -381,12 +445,12 @@
     </section>
 
     <!-- DIGITAL & SYSTEMS SECTION -->
-    <section id="digital" class="py-24 px-6 relative">
+    <section id="digital" class="py-20 sm:py-24 px-4 sm:px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16">
-                <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">Social Media & Digital</h2>
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 sm:mb-16">
+                <h2 class="font-cinematic text-3xl sm:text-4xl md:text-5xl text-white mb-4">Social Media & Digital</h2>
                 <div class="w-24 h-[1px] bg-amber-600 mb-6"></div>
-                <p class="text-gray-400 max-w-xl text-lg font-light">
+                <p class="text-gray-400 max-w-xl text-base sm:text-lg font-light">
                     Interactive filters, fast-paced media, and robust digital systems for the modern era.
                 </p>
             </div>
@@ -394,20 +458,20 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Service 1 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 0ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="smartphone"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">AR & Social Filters</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Engaging interactive filters for TikTok and Instagram.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">AR & Social Filters</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Engaging interactive filters for TikTok and Instagram.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Simple AR Filter</span><span class="font-mono text-amber-500/80">₱5,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Game (Standard)</span><span class="font-mono text-amber-500/80">₱10,000</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Complex / 3D Modeling</span><span class="font-mono text-amber-500/80">₱15k - ₱50k</span>
                             </li>
                         </ul>
@@ -415,17 +479,17 @@
                 </div>
                 <!-- Service 2 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 150ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="monitor-play"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">TikTok Reels Editing</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Fast-paced, high-retention vertical video edits.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">TikTok Reels Editing</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Fast-paced, high-retention vertical video edits.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">30 Seconds</span><span class="font-mono text-amber-500/80">₱200 - ₱800</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">1 Minute</span><span class="font-mono text-amber-500/80">₱1,500 - ₱4,000</span>
                             </li>
                         </ul>
@@ -433,20 +497,20 @@
                 </div>
                 <!-- Service 3 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
                             <i data-lucide="image"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Digital Branding</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Visual assets crafted for your digital presence.</p>
+                        <h3 class="text-xl sm:text-2xl font-cinematic text-white mb-3">Digital Branding</h3>
+                        <p class="text-gray-400 text-sm sm:text-base font-light mb-8 flex-grow">Visual assets crafted for your digital presence.</p>
                         <ul class="space-y-4">
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Static Graphics Package</span><span class="font-mono text-amber-500/80">₱5,000+</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Logo Animation</span><span class="font-mono text-amber-500/80">₱8,000+</span>
                             </li>
-                            <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                            <li class="flex flex-col sm:flex-row justify-between sm:items-center text-sm border-b border-white/5 pb-2 gap-1">
                                 <span class="text-gray-300">Stream Overlay Setup</span><span class="font-mono text-amber-500/80">₱12,000+</span>
                             </li>
                         </ul>
@@ -455,8 +519,8 @@
             </div>
 
             <!-- Digital Sample Link Button -->
-            <div class="mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
-                <a href="https://sites.google.com/view/urban-mirage-service/social-media-digital" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            <div class="mt-12 sm:mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/social-media-digital" class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
                     <span class="relative z-10">View Digital Samples</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
@@ -466,26 +530,26 @@
     </section>
 
     <!-- SYSTEMS & DEVELOPMENT SECTION -->
-    <section id="systems" class="py-24 px-6 relative border-t border-white/5 bg-gradient-to-b from-black/40 to-transparent">
+    <section id="systems" class="py-20 sm:py-24 px-4 sm:px-6 relative border-t border-white/5 bg-gradient-to-b from-black/40 to-transparent">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16 flex flex-col md:items-end md:text-right">
-                <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">Systems & Development</h2>
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 sm:mb-16 flex flex-col md:items-end md:text-right">
+                <h2 class="font-cinematic text-3xl sm:text-4xl md:text-5xl text-white mb-4">Systems & Development</h2>
                 <div class="w-24 h-[1px] bg-amber-600 mb-6 md:ml-auto"></div>
-                <p class="text-gray-400 max-w-xl text-lg font-light">
+                <p class="text-gray-400 max-w-xl text-base sm:text-lg font-light">
                     Robust database and application solutions tailored for seamless business operations.
                 </p>
             </div>
 
             <div class="max-w-5xl mx-auto reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out">
-                <div class="glass-panel p-10 md:p-14 rounded-3xl relative overflow-hidden group border-amber-500/20 hover:border-amber-500/50 transition-all duration-500">
+                <div class="glass-panel p-6 sm:p-10 md:p-14 rounded-3xl relative overflow-hidden group border-amber-500/20 hover:border-amber-500/50 transition-all duration-500">
                     <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                     
-                    <div class="flex flex-col lg:flex-row gap-12 items-center justify-between relative z-10">
+                    <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center justify-between relative z-10">
                         <div class="flex-grow w-full">
-                            <h3 class="text-3xl font-cinematic text-white mb-8 flex items-center gap-4">
-                                <i data-lucide="database" class="text-amber-500 w-8 h-8"></i> Enterprise Solutions
+                            <h3 class="text-2xl sm:text-3xl font-cinematic text-white mb-6 sm:mb-8 flex items-center gap-4">
+                                <i data-lucide="database" class="text-amber-500 w-6 h-6 sm:w-8 sm:h-8"></i> Enterprise Solutions
                             </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 sm:mb-10">
                                 <div class="flex items-start gap-4">
                                     <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
                                         <i data-lucide="server" class="w-4 h-4 text-amber-500"></i>
@@ -524,13 +588,13 @@
                                 </div>
                             </div>
                             
-                            <div class="inline-block px-6 py-3 border border-amber-500/30 rounded-full text-amber-400 font-mono text-xl tracking-wider bg-black/40">
+                            <div class="inline-block px-6 py-3 border border-amber-500/30 rounded-full text-amber-400 font-mono text-lg sm:text-xl tracking-wider bg-black/40">
                                 ₱35,000 – ₱100,000
                             </div>
                         </div>
 
-                        <div class="shrink-0 flex flex-col items-center justify-center w-full lg:w-auto border-t border-white/10 lg:border-t-0 lg:border-l lg:pl-12 pt-8 lg:pt-0">
-                            <p class="text-gray-400 text-sm mb-6 text-center max-w-[250px]">See our portfolio of custom software tailored for complex workflows.</p>
+                        <div class="shrink-0 flex flex-col items-center lg:items-center justify-center w-full lg:w-auto border-t border-white/10 lg:border-t-0 lg:border-l lg:pl-12 pt-8 lg:pt-0">
+                            <p class="text-gray-400 text-sm mb-6 text-center lg:text-center max-w-xs">See our portfolio of custom software tailored for complex workflows.</p>
                             <a href="https://sites.google.com/view/urban-mirage-service/systems-development" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full text-sm font-bold uppercase tracking-widest overflow-hidden transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] w-full justify-center">
                                 <span class="relative z-10">View System Samples</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
@@ -543,21 +607,21 @@
     </section>
 
     <!-- PACKAGES SECTION -->
-    <section id="packages" class="py-24 px-6 relative bg-gradient-to-b from-transparent to-black/80">
+    <section id="packages" class="py-20 sm:py-24 px-4 sm:px-6 relative bg-gradient-to-b from-transparent to-black/80">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16 text-center">
-                <h2 class="font-cinematic text-4xl md:text-6xl text-white mb-6">Production Packages</h2>
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12 sm:mb-16 text-center">
+                <h2 class="font-cinematic text-3xl sm:text-4xl md:text-6xl text-white mb-6">Production Packages</h2>
                 <div class="w-24 h-[1px] bg-amber-600 mx-auto mb-6"></div>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg font-light">
+                <p class="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg font-light">
                     Comprehensive solutions designed for ultimate impact and seamless execution.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Package 1 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 0ms;">
                     <div class="p-[1px] rounded-3xl bg-gradient-to-b from-amber-600/50 to-transparent h-full transition-transform duration-500 hover:-translate-y-3">
-                        <div class="glass-panel rounded-3xl p-10 h-full flex flex-col relative overflow-hidden">
+                        <div class="glass-panel rounded-3xl p-6 sm:p-10 h-full flex flex-col relative overflow-hidden">
                             <div class="absolute top-0 right-0 bg-amber-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl tracking-wider uppercase">
                                 Most Popular
                             </div>
@@ -586,7 +650,7 @@
                                 </li>
                             </ul>
                             <div class="mt-auto pt-6 border-t border-white/10">
-                                <p class="text-xs uppercase tracking-widest text-gray-500 text-center">Draft ₱50k | Rendered ₱90k | UHD ₱150k</p>
+                                <p class="text-[10px] sm:text-xs uppercase tracking-widest text-gray-500 text-center">Draft ₱50k | Rendered ₱90k | UHD ₱150k</p>
                             </div>
                         </div>
                     </div>
@@ -595,7 +659,7 @@
                 <!-- Package 2 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 100ms;">
                     <div class="p-[1px] rounded-3xl bg-white/10 h-full transition-transform duration-500 hover:-translate-y-3">
-                        <div class="glass-panel rounded-3xl p-10 h-full flex flex-col relative overflow-hidden">
+                        <div class="glass-panel rounded-3xl p-6 sm:p-10 h-full flex flex-col relative overflow-hidden">
                             <h3 class="font-cinematic text-2xl text-white mb-2">Social Media Weekly</h3>
                             <div class="text-3xl font-light text-amber-500 mb-6">₱8k - ₱12k</div>
                             <ul class="space-y-4 mb-8 flex-grow">
@@ -613,7 +677,7 @@
                                 </li>
                             </ul>
                             <div class="mt-auto pt-6 border-t border-white/10">
-                                <p class="text-xs uppercase tracking-widest text-gray-500 text-center">Weekly Retainer</p>
+                                <p class="text-[10px] sm:text-xs uppercase tracking-widest text-gray-500 text-center">Weekly Retainer</p>
                             </div>
                         </div>
                     </div>
@@ -621,8 +685,8 @@
 
                 <!-- Package 3 -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 200ms;">
-                    <div class="p-[1px] rounded-3xl bg-white/10 h-full transition-transform duration-500 hover:-translate-y-3">
-                        <div class="glass-panel rounded-3xl p-10 h-full flex flex-col relative overflow-hidden">
+                    <div class="p-[1px] rounded-3xl bg-white/10 h-full transition-transform duration-500 hover:-translate-y-3 col-span-1 md:col-span-2 lg:col-span-1">
+                        <div class="glass-panel rounded-3xl p-6 sm:p-10 h-full flex flex-col relative overflow-hidden">
                             <h3 class="font-cinematic text-2xl text-white mb-2">Event Graphic Assets</h3>
                             <div class="text-3xl font-light text-amber-500 mb-6">₱15k - ₱40k</div>
                             <ul class="space-y-4 mb-8 flex-grow">
@@ -640,7 +704,7 @@
                                 </li>
                             </ul>
                             <div class="mt-auto pt-6 border-t border-white/10">
-                                <p class="text-xs uppercase tracking-widest text-gray-500 text-center">Fixed Package</p>
+                                <p class="text-[10px] sm:text-xs uppercase tracking-widest text-gray-500 text-center">Fixed Package</p>
                             </div>
                         </div>
                     </div>
@@ -650,20 +714,20 @@
     </section>
 
     <!-- POLICIES & INFO -->
-    <section id="policies" class="py-24 px-6 relative border-t border-white/5">
+    <section id="policies" class="py-20 sm:py-24 px-4 sm:px-6 relative border-t border-white/5">
         <div class="max-w-4xl mx-auto">
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12">
-                <h2 class="font-cinematic text-3xl text-center text-white">Service Policies & Guidelines</h2>
+                <h2 class="font-cinematic text-2xl sm:text-3xl text-center text-white">Service Policies & Guidelines</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 <!-- Box 1 -->
                 <div class="reveal-element opacity-0 translate-x-12 md:-translate-x-12 transition-all duration-1000 ease-out" style="transition-delay: 100ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full">
-                        <h4 class="text-white text-lg font-medium mb-4 flex items-center gap-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full">
+                        <h4 class="text-white text-base sm:text-lg font-medium mb-4 flex items-center gap-2">
                             <i data-lucide="alert-circle" class="w-5 h-5 text-amber-500"></i> Revisions & Charges
                         </h4>
-                        <ul class="space-y-3 text-sm text-gray-400 font-light">
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-400 font-light">
                             <li>• 2 minor revisions included per project.</li>
                             <li>• Additional revisions: <span class="text-white">₱500 - ₱1000</span>.</li>
                             <li>• Major concept changes require a new quotation.</li>
@@ -674,11 +738,11 @@
 
                 <!-- Box 2 -->
                 <div class="reveal-element opacity-0 translate-x-12 transition-all duration-1000 ease-out" style="transition-delay: 200ms;">
-                    <div class="glass-panel p-8 rounded-2xl h-full">
-                        <h4 class="text-white text-lg font-medium mb-4 flex items-center gap-2">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl h-full">
+                        <h4 class="text-white text-base sm:text-lg font-medium mb-4 flex items-center gap-2">
                             <i data-lucide="clock" class="w-5 h-5 text-amber-500"></i> Roles & Availability
                         </h4>
-                        <ul class="space-y-3 text-sm text-gray-400 font-light">
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-400 font-light">
                             <li>• Working Hours: <span class="text-white">9am - 5pm (PH Time)</span>.</li>
                             <li>• Closed on Saturdays and Sundays.</li>
                             <li>• Clients must organize materials prior to start.</li>
@@ -689,16 +753,16 @@
 
                 <!-- Full Width Box: Terms of Service Summary -->
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out col-span-1 md:col-span-2 mt-4" style="transition-delay: 300ms;">
-                    <div class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-amber-500/20">
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-amber-500/20">
                         <div>
-                            <h4 class="text-white text-lg font-medium mb-2 flex items-center gap-2">
+                            <h4 class="text-white text-base sm:text-lg font-medium mb-2 flex items-center gap-2">
                                 <i data-lucide="file-text" class="w-5 h-5 text-amber-500"></i> Terms of Service
                             </h4>
-                            <p class="text-sm text-gray-400 font-light max-w-2xl leading-relaxed">
+                            <p class="text-xs sm:text-sm text-gray-400 font-light max-w-2xl leading-relaxed">
                                 By placing an order, you agree to our standard project scope, payment policies, revision limits, delivery processes, and copyright terms. Please review our full terms of service to understand our mutual commitments and guidelines for a smooth creative process.
                             </p>
                         </div>
-                        <button id="open-tos" class="px-8 py-3 bg-white text-black rounded-full text-sm font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors shrink-0 whitespace-nowrap">
+                        <button id="open-tos" class="w-full md:w-auto px-8 py-4 bg-white text-black rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors shrink-0 whitespace-nowrap">
                             View Full Terms
                         </button>
                     </div>
@@ -711,8 +775,8 @@
     <div id="tos-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4 opacity-0 transition-opacity duration-300">
         <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)]" onclick="event.stopPropagation()">
             <!-- Header -->
-            <div class="p-6 md:p-8 border-b border-white/5 flex justify-between items-center shrink-0">
-                <h3 class="font-cinematic text-2xl text-white uppercase tracking-widest flex items-center gap-3">
+            <div class="p-5 sm:p-6 md:p-8 border-b border-white/5 flex justify-between items-center shrink-0">
+                <h3 class="font-cinematic text-xl sm:text-2xl text-white uppercase tracking-widest flex items-center gap-3">
                     <i data-lucide="file-text" class="text-amber-500"></i> Terms of Service
                 </h3>
                 <button id="close-tos" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors">
@@ -721,7 +785,7 @@
             </div>
             
             <!-- Scrollable Content -->
-            <div class="p-6 md:p-8 overflow-y-auto space-y-8 text-sm text-gray-300 font-light leading-relaxed flex-grow">
+            <div class="p-5 sm:p-6 md:p-8 overflow-y-auto space-y-8 text-xs sm:text-sm text-gray-300 font-light leading-relaxed flex-grow">
                 
                 <div class="space-y-2">
                     <h5 class="text-amber-500 font-medium text-base">1. Project Agreement</h5>
@@ -849,8 +913,8 @@
             </div>
             
             <!-- Footer -->
-            <div class="p-6 border-t border-white/5 bg-white/5 rounded-b-2xl flex justify-end shrink-0">
-                <button id="accept-tos" class="px-8 py-3 bg-amber-500 text-black rounded-full text-sm font-bold uppercase tracking-widest hover:bg-amber-400 transition-colors">
+            <div class="p-5 border-t border-white/5 bg-white/5 rounded-b-2xl flex justify-end shrink-0">
+                <button id="accept-tos" class="w-full sm:w-auto px-8 py-3 bg-amber-500 text-black rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest hover:bg-amber-400 transition-colors">
                     I Understand
                 </button>
             </div>
@@ -858,47 +922,47 @@
     </div>
 
     <!-- FOOTER & CONTACT -->
-    <footer id="contact" class="relative py-20 px-6 border-t border-white/10 overflow-hidden">
+    <footer id="contact" class="relative py-16 sm:py-20 px-4 sm:px-6 border-t border-white/10 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent z-0"></div>
         
-        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
             <div class="reveal-element opacity-0 -translate-x-12 transition-all duration-1000 ease-out">
-                <div class="font-cinematic text-3xl font-bold tracking-widest text-white uppercase mb-4">
+                <div class="font-cinematic text-2xl sm:text-3xl font-bold tracking-widest text-white uppercase mb-4">
                     URBAN MIRAGE
                 </div>
-                <p class="text-gray-500 font-light max-w-sm text-sm">
+                <p class="text-gray-500 font-light max-w-sm text-xs sm:text-sm">
                     Architectural visualization, spatial stage design, and digital experiences engineered for the highest aesthetic standards.
                 </p>
             </div>
 
-            <div class="reveal-element opacity-0 translate-x-12 transition-all duration-1000 ease-out">
+            <div class="reveal-element opacity-0 translate-x-12 transition-all duration-1000 ease-out w-full md:w-auto">
                 <div class="flex flex-col gap-4">
                     <a href="mailto:urban.mirage.com@gmail.com" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-600/20 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-600/20 transition-colors shrink-0">
                             <i data-lucide="mail" class="w-[18px] h-[18px]"></i>
                         </div>
-                        <span class="font-light">urban.mirage.com@gmail.com</span>
+                        <span class="font-light text-xs sm:text-sm break-all">urban.mirage.com@gmail.com</span>
                     </a>
                     
                     <div class="flex items-center gap-3 text-gray-400">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
                             <i data-lucide="phone" class="w-[18px] h-[18px]"></i>
                         </div>
-                        <span class="font-light">Viber: 0919 674 9520</span>
+                        <span class="font-light text-xs sm:text-sm">Viber: 0919 674 9520</span>
                     </div>
 
                     <a href="https://www.facebook.com/profile.php?id=61587416017495" target="_blank" rel="noreferrer" class="flex items-center gap-3 text-gray-400 hover:text-[#1877F2] transition-colors group">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#1877F2]/20 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#1877F2]/20 transition-colors shrink-0">
                             <i data-lucide="external-link" class="w-[18px] h-[18px]"></i>
                         </div>
-                        <span class="font-light">Visit our Facebook Page</span>
+                        <span class="font-light text-xs sm:text-sm">Visit our Facebook Page</span>
                     </a>
                 </div>
             </div>
         </div>
         
-        <div class="relative z-10 text-center mt-20 text-xs text-gray-600 font-light tracking-wider">
-            © <span id="current-year"></span>URBAN MIRAGE. ALL RIGHTS RESERVED.
+        <div class="relative z-10 text-center mt-16 sm:mt-20 text-[10px] sm:text-xs text-gray-600 font-light tracking-wider">
+            © <span id="current-year"></span> URBAN MIRAGE. ALL RIGHTS RESERVED.
         </div>
     </footer>
 
@@ -909,6 +973,38 @@
 
         // Set Current Year in Footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Handle Mobile Sidebar drawer navigation
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenuBackdrop.classList.remove('hidden');
+            setTimeout(() => {
+                mobileMenuBackdrop.classList.add('opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenuBackdrop.classList.remove('opacity-100');
+            setTimeout(() => {
+                mobileMenuBackdrop.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = ''; // Unlock scrolling
+        }
+
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
 
         // Handle Terms of Service Modal
         const tosModal = document.getElementById('tos-modal');
@@ -951,13 +1047,17 @@
         
         // Start fading out after 2.7s
         setTimeout(() => {
-            introOverlay.classList.remove('opacity-100');
-            introOverlay.classList.add('opacity-0');
+            if (introOverlay) {
+                introOverlay.classList.remove('opacity-100');
+                introOverlay.classList.add('opacity-0');
+            }
         }, 2700);
 
         // Completely hide from screen after 3.5s
         setTimeout(() => {
-            introOverlay.style.display = 'none';
+            if (introOverlay) {
+                introOverlay.style.display = 'none';
+            }
         }, 3500);
 
         // Scroll Animations (Intersection Observer)
@@ -977,121 +1077,6 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         revealElements.forEach(el => observer.observe(el));
-
-        // --- GLOWING WAVES & PARTICLES (BOKEH EFFECT) ---
-        const canvas = document.getElementById('string-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initWaves(); // Re-initialize to center properly on resize
-        }
-        window.addEventListener('resize', resizeCanvas);
-
-        const glowColor = '255, 70, 130'; // Pinkish-red from the reference image
-
-        class GlowingRibbon {
-            constructor(yOffset) {
-                this.yCenter = height / 2 + yOffset;
-                this.lines = [];
-                // Create multiple overlapping lines for the ribbon
-                const numLines = 6;
-                for (let i = 0; i < numLines; i++) {
-                    let depth = Math.random(); // Calculate a 0.0 - 1.0 depth ratio for the blur and alpha
-                    this.lines.push({
-                        amp: 80 + Math.random() * 120, // Wave amplitude
-                        freq: 0.0015 + Math.random() * 0.0015, // Wavelength
-                        phase: Math.random() * Math.PI * 2, // Start offset
-                        speed: 0.00002 + Math.random() * 0.00005, // EXTREME SLOW MOVEMENT
-                        thickness: 0.1 + depth * 0.8, // MUCH THINNER LINES
-                        blur: (1 - depth) * 45, // High blur if further back, sharp if close up
-                        alpha: 0.05 + depth * 0.35, // Dimmer in the background
-                        yShift: (Math.random() - 0.5) * 60 // Spread lines slightly apart
-                    });
-                }
-
-                // Create particles (dots) floating along the ribbon
-                this.particles = [];
-                for (let i = 0; i < 150; i++) {
-                    this.particles.push({
-                        x: Math.random() * width,
-                        xBaseOffset: Math.random() * 1000,
-                        ySpread: (Math.random() - 0.5) * 120, // Spread around the wave
-                        size: 0.5 + Math.random() * 2.5, // Dot size
-                        speed: 0.05 + Math.random() * 0.15, // EXTREME SLOW PARTICLE MOVEMENT
-                        alpha: 0.05, // FIXED OPACITY to 5%
-                        blur: Math.random() * 12,
-                        lineRef: this.lines[Math.floor(Math.random() * this.lines.length)] // Bind to a line's math
-                    });
-                }
-            }
-
-            updateAndDraw(ctx, time) {
-                // 1. Draw glowing lines
-                this.lines.forEach(line => {
-                    ctx.beginPath();
-                    for (let x = 0; x <= width + 20; x += 20) {
-                        // Parametric sine wave equation
-                        let y = this.yCenter + line.yShift + Math.sin(x * line.freq - time * line.speed + line.phase) * line.amp;
-                        if (x === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
-                    }
-                    ctx.strokeStyle = `rgba(${glowColor}, ${line.alpha})`;
-                    ctx.lineWidth = line.thickness;
-                    ctx.shadowBlur = line.blur;
-                    ctx.shadowColor = `rgba(${glowColor}, 1)`;
-                    ctx.stroke();
-                });
-
-                // 2. Draw glowing particles along the lines
-                this.particles.forEach(p => {
-                    p.x -= p.speed; // Move dots to the left
-                    if (p.x < 0) p.x = width; // Wrap around screen
-                    
-                    let l = p.lineRef;
-                    // Calculate Y based on the wave it is following
-                    let y = this.yCenter + l.yShift + Math.sin((p.x + p.xBaseOffset) * l.freq - time * l.speed + l.phase) * l.amp + p.ySpread;
-                    
-                    ctx.beginPath();
-                    ctx.arc(p.x, y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 230, 240, ${p.alpha})`; // White-ish pink dots
-                    
-                    // Only blur larger dots to save performance and create depth
-                    if (p.size > 1.5) {
-                        ctx.shadowBlur = p.blur;
-                        ctx.shadowColor = `rgba(${glowColor}, 1)`;
-                    } else {
-                        ctx.shadowBlur = 0;
-                    }
-                    ctx.fill();
-                });
-            }
-        }
-
-        let ribbons = [];
-        function initWaves() {
-            ribbons = [
-                new GlowingRibbon(-height * 0.15), // Upper wave
-                new GlowingRibbon(height * 0.15)   // Lower wave
-            ];
-        }
-        
-        // Start dimensions and arrays
-        resizeCanvas();
-
-        function animate(time) {
-            // Clear frame
-            ctx.clearRect(0, 0, width, height);
-            
-            // Draw all ribbons and particles
-            ribbons.forEach(ribbon => ribbon.updateAndDraw(ctx, time));
-            
-            requestAnimationFrame(animate);
-        }
-        requestAnimationFrame(animate);
-
     </script>
 </body>
 </html>
