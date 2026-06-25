@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Design - Creative Studio</title>
+    <title>URBAN MIRAGE - Creative Studio</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,14 +11,21 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Exclusively using Outfit (Sans-Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* Global Font applied to everything */
         body { font-family: 'Outfit', sans-serif; }
-        .font-cinematic { font-family: 'Cinzel', serif; }
+        
+        /* Adjusted cinematic class to use the bold sans-serif with slight spacing */
+        .font-cinematic { 
+            font-family: 'Outfit', sans-serif; 
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
         
         /* Fluid iPhone-style Gradient */
         .film-gradient {
@@ -40,6 +47,11 @@
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 100%; }
+        }
+
+        /* Shimmer effect for sample buttons */
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
         }
 
         .glass-panel {
@@ -118,8 +130,8 @@
         <div class="absolute inset-0 bg-gradient-to-tr from-[#08020a] via-black to-[#04060e]"></div>
         <div class="absolute w-[500px] h-[500px] rounded-full intro-bloom"></div>
         <div class="relative text-center select-none intro-text-reveal px-6">
-            <h1 class="chrome-text text-3xl sm:text-5xl md:text-6xl tracking-[0.4em] font-normal uppercase font-sans">
-                Red Design
+            <h1 class="chrome-text text-3xl sm:text-5xl md:text-6xl tracking-[0.4em] font-bold uppercase font-sans">
+                URBAN MIRAGE
             </h1>
             <p class="text-[9px] sm:text-[11px] text-gray-500/60 uppercase tracking-[0.5em] mt-6 transition-all">
                 Creative Studio
@@ -130,14 +142,15 @@
     <!-- Header Navigation -->
     <header class="fixed top-0 w-full z-40 glass-panel border-b-0 border-t-0 border-r-0 border-l-0">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="font-cinematic text-xl font-bold tracking-widest text-white uppercase flex items-center gap-2">
+            <div class="font-cinematic text-xl tracking-widest text-white uppercase flex items-center gap-2">
                 <span class="w-2 h-2 bg-amber-600 rounded-full animate-pulse"></span>
-                Red Design
+                URBAN MIRAGE
             </div>
-            <nav class="hidden md:flex gap-8 text-sm font-light tracking-wide">
+            <nav class="hidden lg:flex gap-8 text-sm font-light tracking-wide">
                 <a href="#spatial" class="hover:text-white transition-colors">Spatial</a>
                 <a href="#3d" class="hover:text-white transition-colors">3D & Arch</a>
                 <a href="#digital" class="hover:text-white transition-colors">Digital</a>
+                <a href="#systems" class="hover:text-white transition-colors">Systems</a>
                 <a href="#packages" class="hover:text-white transition-colors">Packages</a>
             </nav>
             <a href="#contact" class="px-5 py-2 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all duration-500">
@@ -153,22 +166,22 @@
         <div class="relative z-10 max-w-4xl mx-auto text-center">
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 100ms;">
                 <p class="text-amber-500/80 tracking-[0.3em] text-xs md:text-sm uppercase mb-6 font-medium">
-                    A Production Film Vibe Experience
+                    Design Beyond Expectations
                 </p>
             </div>
             
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
-                <h1 class="font-cinematic text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-tight mb-8 glowing-text">
-                    We Craft <br />
+                <h1 class="font-cinematic text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-8 glowing-text">
+                    We Create <br />
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600">
-                        Visual Realities
+                        Digital Visual Experiences
                     </span>
                 </h1>
             </div>
 
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 500ms;">
                 <p class="text-lg md:text-xl font-light text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                    Elevating spaces, brands, and dimensions through meticulous Stage Design, Architectural 3D Rendering, and Digital Experiences.
+                    Whether it's a sketch, a brand concept, or a fully animated 3D project, we turn your vision into engaging visuals.
                 </p>
             </div>
 
@@ -267,6 +280,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Spatial Design Sample Link Button -->
+            <div class="mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/event-spatial-design" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                    <span class="relative z-10">View Spatial Samples</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -275,7 +297,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16 flex flex-col md:items-end md:text-right">
                 <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">3D & Architectural</h2>
-                <div class="w-24 h-[1px] bg-amber-600 mb-6"></div>
+                <div class="w-24 h-[1px] bg-amber-600 mb-6 md:ml-auto"></div>
                 <p class="text-gray-400 max-w-xl text-lg font-light">
                     Photorealistic modeling and rendering that bring unbuilt concepts into vivid reality.
                 </p>
@@ -346,6 +368,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 3D & Arch Sample Link Button -->
+            <div class="mt-16 flex justify-center md:justify-end reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/3d-architectural" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                    <span class="relative z-10">View 3D & Arch Samples</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -404,21 +435,107 @@
                 <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 300ms;">
                     <div class="glass-panel p-8 rounded-2xl h-full flex flex-col group transition-all duration-500 hover:-translate-y-2">
                         <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform">
-                            <i data-lucide="code"></i>
+                            <i data-lucide="image"></i>
                         </div>
-                        <h3 class="text-2xl font-cinematic text-white mb-3">Systems & Websites</h3>
-                        <p class="text-gray-400 font-light mb-8 flex-grow">Custom development for modern businesses.</p>
+                        <h3 class="text-2xl font-cinematic text-white mb-3">Digital Branding</h3>
+                        <p class="text-gray-400 font-light mb-8 flex-grow">Visual assets crafted for your digital presence.</p>
                         <ul class="space-y-4">
                             <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Inventory / Data Systems</span><span class="font-mono text-amber-500/80">Custom</span>
+                                <span class="text-gray-300">Static Graphics Package</span><span class="font-mono text-amber-500/80">₱5,000+</span>
                             </li>
                             <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Website to Android App</span><span class="font-mono text-amber-500/80">Custom</span>
+                                <span class="text-gray-300">Logo Animation</span><span class="font-mono text-amber-500/80">₱8,000+</span>
                             </li>
                             <li class="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span class="text-gray-300">Project Range</span><span class="font-mono text-amber-500/80">₱35k - ₱100k</span>
+                                <span class="text-gray-300">Stream Overlay Setup</span><span class="font-mono text-amber-500/80">₱12,000+</span>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Sample Link Button -->
+            <div class="mt-16 flex justify-center reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out" style="transition-delay: 400ms;">
+                <a href="https://sites.google.com/view/urban-mirage-service/social-media-digital" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-sm font-medium uppercase tracking-widest text-white overflow-hidden transition-all hover:bg-white/10 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                    <span class="relative z-10">View Digital Samples</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEMS & DEVELOPMENT SECTION -->
+    <section id="systems" class="py-24 px-6 relative border-t border-white/5 bg-gradient-to-b from-black/40 to-transparent">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-16 flex flex-col md:items-end md:text-right">
+                <h2 class="font-cinematic text-4xl md:text-5xl text-white mb-4">Systems & Development</h2>
+                <div class="w-24 h-[1px] bg-amber-600 mb-6 md:ml-auto"></div>
+                <p class="text-gray-400 max-w-xl text-lg font-light">
+                    Robust database and application solutions tailored for seamless business operations.
+                </p>
+            </div>
+
+            <div class="max-w-5xl mx-auto reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out">
+                <div class="glass-panel p-10 md:p-14 rounded-3xl relative overflow-hidden group border-amber-500/20 hover:border-amber-500/50 transition-all duration-500">
+                    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                    
+                    <div class="flex flex-col lg:flex-row gap-12 items-center justify-between relative z-10">
+                        <div class="flex-grow w-full">
+                            <h3 class="text-3xl font-cinematic text-white mb-8 flex items-center gap-4">
+                                <i data-lucide="database" class="text-amber-500 w-8 h-8"></i> Enterprise Solutions
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                                        <i data-lucide="server" class="w-4 h-4 text-amber-500"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-base font-medium mb-1">Inventory System</h4>
+                                        <p class="text-sm text-gray-400 font-light">with Online Database</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                                        <i data-lucide="network" class="w-4 h-4 text-amber-500"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-base font-medium mb-1">Data System</h4>
+                                        <p class="text-sm text-gray-400 font-light">with Online Database</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                                        <i data-lucide="smartphone" class="w-4 h-4 text-amber-500"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-base font-medium mb-1">Mobile App</h4>
+                                        <p class="text-sm text-gray-400 font-light">Website to Android</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                                        <i data-lucide="hard-drive" class="w-4 h-4 text-amber-500"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-base font-medium mb-1">Offline System</h4>
+                                        <p class="text-sm text-gray-400 font-light">and Local Database</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="inline-block px-6 py-3 border border-amber-500/30 rounded-full text-amber-400 font-mono text-xl tracking-wider bg-black/40">
+                                ₱35,000 – ₱100,000
+                            </div>
+                        </div>
+
+                        <div class="shrink-0 flex flex-col items-center justify-center w-full lg:w-auto border-t border-white/10 lg:border-t-0 lg:border-l lg:pl-12 pt-8 lg:pt-0">
+                            <p class="text-gray-400 text-sm mb-6 text-center max-w-[250px]">See our portfolio of custom software tailored for complex workflows.</p>
+                            <a href="https://sites.google.com/view/urban-mirage-service/systems-development" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full text-sm font-bold uppercase tracking-widest overflow-hidden transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] w-full justify-center">
+                                <span class="relative z-10">View System Samples</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -533,15 +650,16 @@
     </section>
 
     <!-- POLICIES & INFO -->
-    <section class="py-24 px-6 relative border-t border-white/5">
+    <section id="policies" class="py-24 px-6 relative border-t border-white/5">
         <div class="max-w-4xl mx-auto">
             <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out mb-12">
                 <h2 class="font-cinematic text-3xl text-center text-white">Service Policies & Guidelines</h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Box 1 -->
                 <div class="reveal-element opacity-0 translate-x-12 md:-translate-x-12 transition-all duration-1000 ease-out" style="transition-delay: 100ms;">
-                    <div class="glass-panel p-8 rounded-2xl">
+                    <div class="glass-panel p-8 rounded-2xl h-full">
                         <h4 class="text-white text-lg font-medium mb-4 flex items-center gap-2">
                             <i data-lucide="alert-circle" class="w-5 h-5 text-amber-500"></i> Revisions & Charges
                         </h4>
@@ -554,10 +672,11 @@
                     </div>
                 </div>
 
+                <!-- Box 2 -->
                 <div class="reveal-element opacity-0 translate-x-12 transition-all duration-1000 ease-out" style="transition-delay: 200ms;">
-                    <div class="glass-panel p-8 rounded-2xl">
+                    <div class="glass-panel p-8 rounded-2xl h-full">
                         <h4 class="text-white text-lg font-medium mb-4 flex items-center gap-2">
-                            <i data-lucide="alert-circle" class="w-5 h-5 text-amber-500"></i> Roles & Availability
+                            <i data-lucide="clock" class="w-5 h-5 text-amber-500"></i> Roles & Availability
                         </h4>
                         <ul class="space-y-3 text-sm text-gray-400 font-light">
                             <li>• Working Hours: <span class="text-white">9am - 5pm (PH Time)</span>.</li>
@@ -567,9 +686,176 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Full Width Box: Terms of Service Summary -->
+                <div class="reveal-element opacity-0 translate-y-12 transition-all duration-1000 ease-out col-span-1 md:col-span-2 mt-4" style="transition-delay: 300ms;">
+                    <div class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-amber-500/20">
+                        <div>
+                            <h4 class="text-white text-lg font-medium mb-2 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-5 h-5 text-amber-500"></i> Terms of Service
+                            </h4>
+                            <p class="text-sm text-gray-400 font-light max-w-2xl leading-relaxed">
+                                By placing an order, you agree to our standard project scope, payment policies, revision limits, delivery processes, and copyright terms. Please review our full terms of service to understand our mutual commitments and guidelines for a smooth creative process.
+                            </p>
+                        </div>
+                        <button id="open-tos" class="px-8 py-3 bg-white text-black rounded-full text-sm font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors shrink-0 whitespace-nowrap">
+                            View Full Terms
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- TERMS OF SERVICE MODAL OVERLAY -->
+    <div id="tos-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)]" onclick="event.stopPropagation()">
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/5 flex justify-between items-center shrink-0">
+                <h3 class="font-cinematic text-2xl text-white uppercase tracking-widest flex items-center gap-3">
+                    <i data-lucide="file-text" class="text-amber-500"></i> Terms of Service
+                </h3>
+                <button id="close-tos" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <!-- Scrollable Content -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-8 text-sm text-gray-300 font-light leading-relaxed flex-grow">
+                
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">1. Project Agreement</h5>
+                    <p>By placing an order, the client agrees to the project scope, deliverables, timeline, and pricing discussed before work begins.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">2. Payment Policy</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>A non-refundable deposit of 50% is required before work starts.</li>
+                        <li>The remaining balance must be paid before final high-resolution or source files are delivered.</li>
+                        <li>No final files will be released until full payment is received.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">3. Revisions</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>The project includes up to 3 revision rounds unless otherwise stated.</li>
+                        <li>Additional revisions may incur extra charges.</li>
+                        <li>Major changes to the original concept may be treated as a new project.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">4. Delivery Process</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Progress previews may contain watermarks, reduced resolution, or protective overlays.</li>
+                        <li>Final files will be delivered only after full payment.</li>
+                        <li>Delivery formats will be agreed upon before the project begins.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">5. Client Responsibilities</h5>
+                    <p>The client must:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Provide accurate project requirements.</li>
+                        <li>Supply necessary logos, text, images, and brand assets.</li>
+                        <li>Respond to revision requests and approvals in a timely manner.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">6. Ownership & Copyright</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>The designer retains all rights until full payment is received.</li>
+                        <li>Upon full payment, ownership of the final approved design transfers to the client unless otherwise agreed.</li>
+                        <li>Preliminary concepts, rejected designs, and drafts remain the property of the designer.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">7. Portfolio Rights</h5>
+                    <p>The designer reserves the right to display completed work in portfolios, social media, marketing materials, and case studies unless a separate confidentiality agreement exists.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">8. Project Cancellation</h5>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>If the client cancels after work has begun, payments already made are non-refundable.</li>
+                        <li>Any completed work up to the cancellation date remains the property of the designer unless otherwise agreed.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">9. Refund Policy</h5>
+                    <p>Due to the custom nature of design services:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Deposits are non-refundable.</li>
+                        <li>Refunds are not available once design work has commenced.</li>
+                        <li>Exceptions may be considered at the designer's discretion.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">10. Communication</h5>
+                    <p>All project discussions, approvals, and revision requests should be conducted through agreed communication channels (email, website chat, Discord, etc.) to maintain clear records.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">11. Delivery Acceptance & Project Inactivity</h5>
+                    <p>A project shall be considered accepted and completed under any of the following circumstances:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>The client explicitly approves the final design.</li>
+                        <li>The client downloads, uses, publishes, distributes, or commercially utilizes any delivered work.</li>
+                        <li>The client fails to provide feedback, revision requests, required materials, or responses within the specified inactivity period.</li>
+                    </ul>
+                    
+                    <p class="font-medium text-white mt-4">Client Inactivity Policy:</p>
+                    <p>To ensure efficient project scheduling and resource allocation, projects may not remain open indefinitely.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>If the client becomes unresponsive for 14 consecutive days, the project will be placed on inactive status.</li>
+                        <li>If the client remains unresponsive for 30 consecutive days (1 month) after the last communication, the project will be considered abandoned and automatically terminated.</li>
+                        <li>Any deposits, milestone payments, or fees paid before termination are non-refundable.</li>
+                        <li>The designer reserves the right to archive, remove, or permanently delete project files, drafts, and communications after project termination.</li>
+                        <li>Reopening a terminated project may require a new agreement, updated pricing, and a reactivation fee at the designer's discretion.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">12. Dispute Resolution</h5>
+                    <p>Both parties agree to attempt resolution through direct communication before initiating chargebacks, legal action, or public complaints.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">13. Chargeback Protection</h5>
+                    <p>Initiating a payment dispute or chargeback after receiving completed work, source files, or commercial assets may constitute copyright infringement and unauthorized use of intellectual property.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">14. AI-Generated and Stock Assets</h5>
+                    <p>If a project includes AI-generated content, stock resources, fonts, or third-party assets, usage rights are subject to the original license terms of those assets.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-amber-500 font-medium text-base">15. Acceptance of Terms</h5>
+                    <p>By submitting payment, the client acknowledges and agrees to these terms and conditions.</p>
+                </div>
+
+                <div class="space-y-2 pt-4 border-t border-white/5">
+                    <h5 class="text-amber-500 font-medium text-base">Delivery and Approval Window</h5>
+                    <p>Upon delivery of a final proof or revision, the client is encouraged to review the work promptly. Failure to provide approval, rejection, or revision requests within the inactivity period shall be interpreted as acceptance of the work completed up to that stage.</p>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/5 bg-white/5 rounded-b-2xl flex justify-end shrink-0">
+                <button id="accept-tos" class="px-8 py-3 bg-amber-500 text-black rounded-full text-sm font-bold uppercase tracking-widest hover:bg-amber-400 transition-colors">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER & CONTACT -->
     <footer id="contact" class="relative py-20 px-6 border-t border-white/10 overflow-hidden">
@@ -578,7 +864,7 @@
         <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="reveal-element opacity-0 -translate-x-12 transition-all duration-1000 ease-out">
                 <div class="font-cinematic text-3xl font-bold tracking-widest text-white uppercase mb-4">
-                    Red Design
+                    URBAN MIRAGE
                 </div>
                 <p class="text-gray-500 font-light max-w-sm text-sm">
                     Architectural visualization, spatial stage design, and digital experiences engineered for the highest aesthetic standards.
@@ -612,7 +898,7 @@
         </div>
         
         <div class="relative z-10 text-center mt-20 text-xs text-gray-600 font-light tracking-wider">
-            © <span id="current-year"></span> RED DESIGN SERVICES. ALL RIGHTS RESERVED.
+            © <span id="current-year"></span>URBAN MIRAGE. ALL RIGHTS RESERVED.
         </div>
     </footer>
 
@@ -623,6 +909,42 @@
 
         // Set Current Year in Footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Handle Terms of Service Modal
+        const tosModal = document.getElementById('tos-modal');
+        const openTosBtn = document.getElementById('open-tos');
+        const closeTosBtn = document.getElementById('close-tos');
+        const acceptTosBtn = document.getElementById('accept-tos');
+
+        function openModal() {
+            tosModal.classList.remove('hidden');
+            tosModal.classList.add('flex');
+            // Allow display block to apply before animating opacity
+            setTimeout(() => {
+                tosModal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            tosModal.classList.add('opacity-0');
+            setTimeout(() => {
+                tosModal.classList.add('hidden');
+                tosModal.classList.remove('flex');
+                document.body.style.overflow = ''; // Restore scrolling
+            }, 300);
+        }
+
+        openTosBtn.addEventListener('click', openModal);
+        closeTosBtn.addEventListener('click', closeModal);
+        acceptTosBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside the content
+        tosModal.addEventListener('click', (e) => {
+            if (e.target === tosModal) {
+                closeModal();
+            }
+        });
 
         // Handle Intro Sequence
         const introOverlay = document.getElementById('intro-overlay');
